@@ -1,0 +1,20 @@
+availableTiers:
+- name: Unlimited
+context: /Logistics/transportationManagement/rlog/transportOrderTracking//{version}
+contextTemplate: /Logistics/transportationManagement/rlog/transportOrderTracking//{version}
+description: "Renner Logistica - Tracking. API para receber registros de tracking\
+  \ dos parceiros log\xEDsticos e encaminhar aos sistemas internos das Lojas Renner\
+  \ S/A."
+enableStore: true
+id:
+  apiName: RLOG-TRANSPORT-ORDER-TRACKING-API
+  providerName: admin
+  version: 1.4.0.x
+productionUrl: http://10.201.218.200/rlog/rlog-transport-order-tracking-service/v1
+sandboxUrl: http://10.201.218.200/rlog/rlog-transport-order-tracking-service/v1
+status: CREATED
+tags:
+- Plataforma Logistica
+transports: http,https
+type: HTTP
+visibility: public

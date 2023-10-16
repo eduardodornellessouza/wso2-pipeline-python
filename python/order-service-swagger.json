@@ -1,0 +1,2087 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+       "title": "TRANSPORT ORDER TRACKING",
+       "description": "Renner Logistica - Tracking. API para receber registros de tracking dos parceiros logísticos e encaminhar aos sistemas internos das Lojas Renner S/A.",
+       "contact": {
+          "name": "GUILHERME CASTRO",
+          "email": "guilherme.castro@mycompany.com.br"
+       },
+       "version": "1.4.0.x"
+    },
+    "servers": [
+       {
+          "url": "/Logistics/transportationManagement/rlog/transportOrderTracking/"
+       }
+    ],
+    "security": [
+       {
+          "ApiKeyAuth": []
+       },
+       {
+          "BasicAuth": []
+       },
+       {
+          "OAuth2": []
+       }
+    ],
+    "tags": [
+       {
+          "name": "Transport Order Tracking",
+          "description": "registro de trackings dos parceiros logísticos"
+       }
+    ],
+    "paths": {
+       "/v1/transportOrderTracking/{companyId}/intelipost": {
+          "post": {
+             "tags": [
+                "Transport Order Tracking"
+             ],
+             "summary": "Receber atualização de Tracking do parceiro Intelipost (Plataforma)",
+             "description": "Receber atualização de Tracking do parceiro Intelipost que será enviado ao parceiro (Plataforma)",
+             "operationId": "createTransportOrderTrackingIntelipost",
+             "parameters": [
+                {
+                   "name": "companyId",
+                   "in": "path",
+                   "description": "Id da Empresa",
+                   "required": true,
+                   "schema": {
+                      "type": "string"
+                   }
+                }
+             ],
+             "requestBody": {
+                "content": {
+                   "application/json": {
+                      "schema": {
+                         "$ref": "#/components/schemas/IntelipostRequest"
+                      }
+                   }
+                },
+                "required": true
+             },
+             "responses": {
+                "500": {
+                   "description": "Erro interno.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "400": {
+                   "description": "Pedido de Transporte com problemas nos dados.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "200": {
+                   "description": "Operação realizada com sucesso",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                }
+             },
+             "security": [
+                {
+                   "ApiKeyAuth": []
+                },
+                {
+                   "BasicAuth": []
+                },
+                {
+                   "OAuth2": []
+                }
+             ]
+          }
+       },
+       "/v1/transportOrderTracking/freterapido": {
+          "post": {
+             "tags": [
+                "Transport Order Tracking"
+             ],
+             "summary": "Receber atualização de Tracking seguindo o padrão Frete Rápido",
+             "description": "Receber atualização de Tracking de qualquer parceiro, seguindo o padrão estabelecido da Frete Rápido",
+             "operationId": "createTransportOrderTracking",
+             "parameters": [
+                {
+                   "name": "companyId",
+                   "in": "header",
+                   "description": "Id da Empresa",
+                   "required": true,
+                   "schema": {
+                      "type": "string"
+                   },
+                   "example": "RENNER, CAMICADO"
+                }
+             ],
+             "requestBody": {
+                "content": {
+                   "application/json": {
+                      "schema": {
+                         "$ref": "#/components/schemas/FreteRapidoRequest"
+                      }
+                   }
+                },
+                "required": true
+             },
+             "responses": {
+                "500": {
+                   "description": "Erro interno.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "400": {
+                   "description": "Pedido de Transporte com problemas nos dados.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "200": {
+                   "description": "Operação realizada com sucesso",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                }
+             },
+             "security": [
+                {
+                   "ApiKeyAuth": []
+                },
+                {
+                   "BasicAuth": []
+                },
+                {
+                   "OAuth2": []
+                }
+             ]
+          }
+       },
+       "/v1/transportOrderTracking/bringg/shared_location": {
+          "post": {
+             "tags": [
+                "Transport Order Tracking"
+             ],
+             "summary": "Receber informações de localização do entregador na Bringg",
+             "description": "Receber informações de localização do entregador na Bringg e envia-las ao HUB GPC",
+             "operationId": "sendBringgDeliverymanLocalization",
+             "requestBody": {
+                "content": {
+                   "application/json": {
+                      "schema": {
+                         "$ref": "#/components/schemas/SharedLocationRequest"
+                      }
+                   }
+                },
+                "required": true
+             },
+             "responses": {
+                "500": {
+                   "description": "Erro interno.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "400": {
+                   "description": "Pedido de Transporte com problemas nos dados.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "200": {
+                   "description": "Operação realizada com sucesso",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                }
+             },
+             "security": [
+                {
+                   "ApiKeyAuth": []
+                },
+                {
+                   "BasicAuth": []
+                },
+                {
+                   "OAuth2": []
+                }
+             ]
+          }
+       },
+       "/v1/transportOrderTracking/bringg": {
+          "post": {
+             "tags": [
+                "Transport Order Tracking"
+             ],
+             "summary": "Receber atualização de Tracking do parceiro Bringg (Plataforma)",
+             "description": "Receber atualização de Tracking do parceiro Bringg que será enviado ao parceiro (Plataforma)",
+             "operationId": "createTransportOrderTrackingBringg",
+             "requestBody": {
+                "content": {
+                   "application/json": {
+                      "schema": {
+                         "$ref": "#/components/schemas/BringgRequest"
+                      }
+                   }
+                },
+                "required": true
+             },
+             "responses": {
+                "500": {
+                   "description": "Erro interno.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "400": {
+                   "description": "Pedido de Transporte com problemas nos dados.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "200": {
+                   "description": "Operação realizada com sucesso",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                }
+             },
+             "security": [
+                {
+                   "ApiKeyAuth": []
+                },
+                {
+                   "BasicAuth": []
+                },
+                {
+                   "OAuth2": []
+                }
+             ]
+          }
+       },
+       "/v1/transportOrderTracking": {
+          "post": {
+             "tags": [
+                "Transport Order Tracking"
+             ],
+             "summary": "Receber atualização de Tracking seguindo o padrão Renner",
+             "description": "Receber atualização de Tracking de qualquer parceiro, seguindo o padrão estabelecido pela Renner",
+             "operationId": "createTransportOrderTracking_1",
+             "parameters": [
+                {
+                   "name": "companyId",
+                   "in": "header",
+                   "description": "Id da Empresa",
+                   "required": true,
+                   "schema": {
+                      "type": "string"
+                   },
+                   "example": "RENNER, CAMICADO, etc.."
+                },
+                {
+                   "name": "partnerId",
+                   "in": "header",
+                   "description": "Id do parceiro logístico",
+                   "required": true,
+                   "schema": {
+                      "type": "string"
+                   },
+                   "example": "BRING, INTELIPOST"
+                },
+                {
+                   "name": "trackinOrigin",
+                   "in": "header",
+                   "description": "Origem do tracking (CD, Filial, etc.)",
+                   "required": false,
+                   "schema": {
+                      "type": "string"
+                   }
+                },
+                {
+                   "name": "sellerId",
+                   "in": "header",
+                   "description": "Id do Seller",
+                   "required": false,
+                   "schema": {
+                      "type": "string"
+                   }
+                }
+             ],
+             "requestBody": {
+                "content": {
+                   "application/json": {
+                      "schema": {
+                         "$ref": "#/components/schemas/OrderTrackingRenner"
+                      }
+                   }
+                },
+                "required": true
+             },
+             "responses": {
+                "500": {
+                   "description": "Erro interno.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "400": {
+                   "description": "Pedido de Transporte com problemas nos dados.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                },
+                "200": {
+                   "description": "Operação realizada com sucesso",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "$ref": "#/components/schemas/TransportOrderTrackingReturn"
+                         }
+                      }
+                   }
+                }
+             },
+             "security": [
+                {
+                   "ApiKeyAuth": []
+                },
+                {
+                   "BasicAuth": []
+                },
+                {
+                   "OAuth2": []
+                }
+             ]
+          }
+       },
+       "/v1/transportOrderTracking/{transportOrderNumber}": {
+          "get": {
+             "tags": [
+                "Transport Order Tracking"
+             ],
+             "summary": "Obter registros dos trackings processados",
+             "description": "Obter registros dos trackings processados por transportOrderTracking",
+             "operationId": "getReceivedTrackingByTransportOrderNumber",
+             "parameters": [
+                {
+                   "name": "transportOrderNumber",
+                   "in": "path",
+                   "description": "Número da ordem",
+                   "required": true,
+                   "schema": {
+                      "type": "string"
+                   }
+                }
+             ],
+             "responses": {
+                "500": {
+                   "description": "Erro interno.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "type": "array",
+                            "items": {
+                               "$ref": "#/components/schemas/ProcessedTrackingDto"
+                            }
+                         }
+                      }
+                   }
+                },
+                "400": {
+                   "description": "Pedido de Transporte com problemas nos dados.",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "type": "array",
+                            "items": {
+                               "$ref": "#/components/schemas/ProcessedTrackingDto"
+                            }
+                         }
+                      }
+                   }
+                },
+                "200": {
+                   "description": "Operação realizada com sucesso",
+                   "content": {
+                      "application/json": {
+                         "schema": {
+                            "type": "array",
+                            "items": {
+                               "$ref": "#/components/schemas/ProcessedTrackingDto"
+                            }
+                         }
+                      }
+                   }
+                }
+             },
+             "security": [
+                {
+                   "ApiKeyAuth": []
+                },
+                {
+                   "BasicAuth": []
+                },
+                {
+                   "OAuth2": []
+                }
+             ]
+          }
+       }
+    },
+    "components": {
+       "schemas": {
+          "Attachments": {
+             "type": "object",
+             "properties": {
+                "type": {
+                   "type": "string",
+                   "description": "Tipo do arquivo"
+                },
+                "file_name": {
+                   "type": "string",
+                   "description": "Nome do arquivo"
+                },
+                "mime_type": {
+                   "type": "string",
+                   "description": "Identificação da extensão dos anexos."
+                },
+                "processing_status": {
+                   "type": "string",
+                   "description": "Status do processamento"
+                }
+             },
+             "description": "Dados dos anexos"
+          },
+          "EstimatedDeliveryDate": {
+             "type": "object",
+             "properties": {
+                "client": {
+                   "$ref": "#/components/schemas/IntelipostDate"
+                },
+                "logistic_provider": {
+                   "$ref": "#/components/schemas/IntelipostDate"
+                }
+             },
+             "description": "Data estimada de entrega do pedido"
+          },
+          "ExternalOrderNumbers": {
+             "type": "object",
+             "properties": {
+                "sales": {
+                   "type": "string",
+                   "description": "Vendas"
+                }
+             },
+             "description": "Número de ordem externo"
+          },
+          "Extra": {
+             "type": "object",
+             "properties": {
+                "_type": {
+                   "type": "string",
+                   "description": "Tipo do arquivo"
+                }
+             },
+             "description": "Extra"
+          },
+          "History": {
+             "type": "object",
+             "properties": {
+                "created": {
+                   "type": "integer",
+                   "description": "Data de criação do evento em Unix Timestamp.",
+                   "format": "int64"
+                },
+                "extra": {
+                   "type": "array",
+                   "description": "Extra",
+                   "items": {
+                      "$ref": "#/components/schemas/Extra"
+                   }
+                },
+                "location": {
+                   "$ref": "#/components/schemas/Location"
+                },
+                "attachments": {
+                   "type": "array",
+                   "description": "Dados dos anexos",
+                   "items": {
+                      "$ref": "#/components/schemas/Attachments"
+                   }
+                },
+                "shipment_order_volume_id": {
+                   "type": "integer",
+                   "description": "Id do volume do pedido de envio.",
+                   "format": "int64"
+                },
+                "shipment_order_volume_state": {
+                   "type": "string",
+                   "description": "Macro status do volume do pedido de envio"
+                },
+                "tracking_state": {
+                   "type": "string",
+                   "description": "Status do rastreamento"
+                },
+                "created_iso": {
+                   "type": "string",
+                   "description": "Data de criação do evento."
+                },
+                "provider_message": {
+                   "type": "string",
+                   "description": "Mensagem enviada pelo transportador."
+                },
+                "provider_state": {
+                   "type": "string",
+                   "description": "Status enviado pelo transportador."
+                },
+                "esprinter_message": {
+                   "type": "string",
+                   "description": "Mensagem traduzida no modelo Intelipost."
+                },
+                "shipper_provider_state": {
+                   "type": "string",
+                   "description": "Código de ocorrência do transportador enviado pelo embarcador."
+                },
+                "shipment_volume_micro_state": {
+                   "$ref": "#/components/schemas/ShipmentVolumeMicroState"
+                },
+                "request_hash": {
+                   "type": "string",
+                   "description": "requisição"
+                },
+                "request_origin": {
+                   "type": "string",
+                   "description": "Origem da requisição"
+                },
+                "shipment_order_volume_state_localized": {
+                   "type": "string",
+                   "description": "Status atual do volume do pedido de envio."
+                },
+                "shipment_order_volume_state_history": {
+                   "type": "integer",
+                   "description": "Histórico do volume.",
+                   "format": "int64"
+                },
+                "event_date": {
+                   "type": "integer",
+                   "description": "Data do evento em Unix Timestamp.",
+                   "format": "int64"
+                },
+                "event_date_iso": {
+                   "type": "string",
+                   "description": "Data do evento."
+                }
+             },
+             "description": "Histórico"
+          },
+          "IntelipostDate": {
+             "type": "object",
+             "properties": {
+                "current": {
+                   "type": "integer",
+                   "description": "Data estimada de entrega (transportadora) atual em Unix Timestamp",
+                   "format": "int64"
+                },
+                "original": {
+                   "type": "integer",
+                   "description": "Data estimada de entrega (transportadora) sem nenhuma regra de negócio aplicada. É enviado no formato unix timestamp",
+                   "format": "int64"
+                },
+                "current_iso": {
+                   "type": "string",
+                   "description": "Data estimada de entrega (transportadora) atual em Timestamp"
+                },
+                "original_iso": {
+                   "type": "string",
+                   "description": "Data estimada de entrega (transportadora) sem nenhuma regra de negócio aplicada. É enviado no formato unix timestamp."
+                }
+             },
+             "description": "Provedor logístico"
+          },
+          "IntelipostRequest": {
+             "type": "object",
+             "properties": {
+                "history": {
+                   "$ref": "#/components/schemas/History"
+                },
+                "shipmentVolumeMicroState": {
+                   "$ref": "#/components/schemas/ShipmentVolumeMicroState"
+                },
+                "extra": {
+                   "$ref": "#/components/schemas/Extra"
+                },
+                "location": {
+                   "$ref": "#/components/schemas/Location"
+                },
+                "invoice": {
+                   "$ref": "#/components/schemas/Invoice"
+                },
+                "order_number": {
+                   "type": "string",
+                   "description": "Número da ordem da remessa"
+                },
+                "sales_order_number": {
+                   "type": "string",
+                   "description": "Número do pedido"
+                },
+                "tracking_code": {
+                   "type": "string",
+                   "description": "Código do tracking"
+                },
+                "volume_number": {
+                   "type": "string",
+                   "description": "Número do volume"
+                },
+                "tracking_url": {
+                   "type": "string",
+                   "description": "URL de rastreamento ondeestámeupedido criptografada."
+                },
+                "external_order_numbers": {
+                   "$ref": "#/components/schemas/ExternalOrderNumbers"
+                },
+                "estimated_delivery_date": {
+                   "$ref": "#/components/schemas/EstimatedDeliveryDate"
+                }
+             },
+             "description": "Objeto com os dados do Tracking com origem do parceiro Intelipost"
+          },
+          "Invoice": {
+             "type": "object",
+             "properties": {
+                "invoice_series": {
+                   "type": "string",
+                   "description": "Série da nota fiscal"
+                },
+                "invoice_number": {
+                   "type": "string",
+                   "description": "Número da nota fiscal"
+                },
+                "invoice_key": {
+                   "type": "string",
+                   "description": "Chave da nota fiscal"
+                }
+             },
+             "description": "Nota fiscal"
+          },
+          "Location": {
+             "type": "object",
+             "properties": {
+                "address": {
+                   "type": "string",
+                   "description": "endereço"
+                },
+                "number": {
+                   "type": "string",
+                   "description": "número"
+                },
+                "additional": {
+                   "type": "string",
+                   "description": "Complemento"
+                },
+                "reference": {
+                   "type": "string",
+                   "description": "Ponto de referência"
+                },
+                "city": {
+                   "type": "string",
+                   "description": "cidade"
+                },
+                "quarter": {
+                   "type": "string",
+                   "description": "Bairro"
+                },
+                "description": {
+                   "type": "string",
+                   "description": "Descrição"
+                },
+                "latitude": {
+                   "type": "number",
+                   "description": "Latitute",
+                   "format": "double"
+                },
+                "longitude": {
+                   "type": "number",
+                   "description": "Longitude",
+                   "format": "double"
+                },
+                "state_code": {
+                   "type": "string",
+                   "description": "Código do estado"
+                },
+                "zip_code": {
+                   "type": "string",
+                   "description": "Cep"
+                }
+             },
+             "description": "Localização"
+          },
+          "ShipmentVolumeMicroState": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "description": "Identificador Intelipost do micro status.",
+                   "format": "int64"
+                },
+                "code": {
+                   "type": "string",
+                   "description": "Código Intelipost do micro status"
+                },
+                "description": {
+                   "type": "string",
+                   "description": "Descrição do status"
+                },
+                "name": {
+                   "type": "string",
+                   "description": "Nome do stauts."
+                },
+                "default_name": {
+                   "type": "string",
+                   "description": "Nome padrão."
+                },
+                "i18n_name": {
+                   "type": "string",
+                   "description": "Nome internacionalizado."
+                },
+                "shipment_order_volume_state_id": {
+                   "type": "integer",
+                   "description": "Identificador do volume.",
+                   "format": "int32"
+                },
+                "shipment_volume_state_source_id": {
+                   "type": "integer",
+                   "description": "Identificador da origem do volume.",
+                   "format": "int32"
+                },
+                "shipment_volume_state": {
+                   "type": "string",
+                   "description": "Origem do volume"
+                },
+                "shipment_volume_state_localized": {
+                   "type": "string",
+                   "description": "Status atual do volume do pedido de envio."
+                }
+             },
+             "description": "Volume de embarque de micro status"
+          },
+          "TransportOrderTrackingReturn": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "string",
+                   "description": "Id"
+                },
+                "receivedDate": {
+                   "type": "string",
+                   "description": "Data de recebido",
+                   "format": "date-time"
+                },
+                "status": {
+                   "type": "string",
+                   "description": "Status"
+                }
+             }
+          },
+          "FreteRapidoRequest": {
+             "required": [
+                "codigo",
+                "data_atualizacao",
+                "data_ocorrencia",
+                "id_frete",
+                "nome",
+                "notas_fiscais",
+                "numero_pedido"
+             ],
+             "type": "object",
+             "properties": {
+                "canal": {
+                   "type": "string",
+                   "description": "Nome do canal informado frete"
+                },
+                "codigo": {
+                   "type": "integer",
+                   "description": "Código da ocorrência. Vide todas as ocorrências disponíveis na Frete Rápido (STATUS)",
+                   "format": "int32"
+                },
+                "nome": {
+                   "type": "string",
+                   "description": "Nome da ocorrência"
+                },
+                "mensagem": {
+                   "type": "string",
+                   "description": "Mensagem de texto livre da transportadora"
+                },
+                "metadados": {
+                   "type": "array",
+                   "items": {
+                      "$ref": "#/components/schemas/Metadado"
+                   }
+                },
+                "transportadora": {
+                   "$ref": "#/components/schemas/Transportadora"
+                },
+                "id_frete": {
+                   "type": "string",
+                   "description": "Id do frete"
+                },
+                "numero_pedido": {
+                   "type": "string",
+                   "description": "Númedo do pedido"
+                },
+                "numero_pedido_pai": {
+                   "type": "string",
+                   "description": "Númedo do pedido Pai"
+                },
+                "data_ocorrencia": {
+                   "type": "string",
+                   "description": "Data e hora da ocorrência pela transportadora informada à Frete Rápido"
+                },
+                "data_atualizacao": {
+                   "type": "string",
+                   "description": "Data e hora da atualização da ocorrência pela transportadora"
+                },
+                "data_reentrega": {
+                   "type": "string",
+                   "description": "Data de previsão de nova tentativa de entrega ao destinatário"
+                },
+                "prazo_devolucao": {
+                   "type": "string",
+                   "description": "Prazo em dias úteis para devolução da carga"
+                },
+                "notas_fiscais": {
+                   "type": "array",
+                   "description": "Notas fiscais",
+                   "items": {
+                      "$ref": "#/components/schemas/NotaFiscal"
+                   }
+                }
+             },
+             "description": "Objeto com os dados do Tracking"
+          },
+          "Metadado": {
+             "type": "object",
+             "properties": {
+                "chave": {
+                   "type": "string"
+                },
+                "valor": {
+                   "type": "string"
+                }
+             }
+          },
+          "NotaFiscal": {
+             "type": "object",
+             "properties": {
+                "numero": {
+                   "type": "string",
+                   "description": "Número da nota fiscal"
+                },
+                "serie": {
+                   "type": "string",
+                   "description": "Série da nota fiscal"
+                },
+                "chave_acesso": {
+                   "type": "string",
+                   "description": "Chave de acesso da nota fiscal"
+                }
+             },
+             "description": "Notas fiscais"
+          },
+          "Transportadora": {
+             "type": "object",
+             "properties": {
+                "cnpj": {
+                   "type": "string"
+                },
+                "razao_social": {
+                   "type": "string"
+                }
+             },
+             "description": "Transportadora"
+          },
+          "Company": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "format": "int64"
+                },
+                "name": {
+                   "type": "string"
+                }
+             },
+             "description": "Empresa"
+          },
+          "Customer": {
+             "type": "object",
+             "properties": {
+                "name": {
+                   "type": "string",
+                   "description": "Nome"
+                }
+             },
+             "description": "Cliente"
+          },
+          "ReasonToCancelTask": {
+             "type": "object",
+             "properties": {
+                "reason": {
+                   "type": "string"
+                }
+             }
+          },
+          "SharedLocation": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "description": "A ID da ordem à qual o SMS está associado.",
+                   "format": "int32"
+                },
+                "uuid": {
+                   "type": "string",
+                   "description": "A id universal única desta ordem."
+                },
+                "expired": {
+                   "type": "boolean",
+                   "description": "Indica se o local compartilhado expirou, onde expirado significa que o pedido foi concluído ou não permite assistir."
+                },
+                "url": {
+                   "type": "string",
+                   "description": "URL da página web para esta atualização de localização compartilhada."
+                },
+                "task": {
+                   "$ref": "#/components/schemas/Task"
+                },
+                "user_id": {
+                   "type": "integer",
+                   "description": "A identificação do usuário (motorista)",
+                   "format": "int32"
+                },
+                "task_id": {
+                   "type": "integer",
+                   "description": "A ordem bringg id.",
+                   "format": "int32"
+                },
+                "created_at": {
+                   "type": "string",
+                   "description": "A data e a hora em que esta ordem foi criada. Isso está em UTC e está no formato é \" %Y-%m-%dT%H:%M:%S%z\""
+                },
+                "updated_at": {
+                   "type": "string",
+                   "description": "A data e a hora da última atualização para esta ordem. Isso está na UTC e está no formato é %Y-%m-%dT%H:%M:%S%z\".."
+                },
+                "customer_id": {
+                   "type": "integer",
+                   "description": "A ID do cliente com o qual esta ordem está associada.",
+                   "format": "int32"
+                },
+                "way_point_id": {
+                   "type": "integer",
+                   "description": "A ID do ponto de como este SMS está associado.",
+                   "format": "int32"
+                },
+                "shared_on": {
+                   "type": "string",
+                   "description": "A data e a hora em que foi feita uma tentativa de compartilhar este SMS. Isso está em UTC e está no formato é \" %Y-%m-%dT%H:%M:%S%z\""
+                },
+                "shared_successfully": {
+                   "type": "boolean",
+                   "description": "Indica se o SMS sobre a localização compartilhada foi bem sucedido."
+                },
+                "failure_reason": {
+                   "type": "string",
+                   "description": "Se o SMS e o e-mail falharam, o motivo da falha."
+                },
+                "first_seen_on": {
+                   "type": "string",
+                   "description": "A data e a hora em que o local compartilhado foi visto pela primeira vez. Isso está em UTC e está no formato é \" %Y-%m-%dT%H:%M:%S%z\""
+                },
+                "view_counter": {
+                   "type": "integer",
+                   "description": "A descrição deste parâmetro está pendente.",
+                   "format": "int32"
+                },
+                "shared_type": {
+                   "type": "integer",
+                   "description": "O tipo ou razão para o SMS.",
+                   "format": "int32"
+                },
+                "sharing_method": {
+                   "type": "integer",
+                   "description": "O tipo de compartilhamento de SMS.",
+                   "format": "int32"
+                },
+                "rating_token": {
+                   "type": "string",
+                   "description": "O token usado para uma classificação neste local compartilhado."
+                },
+                "rating_url": {
+                   "type": "string",
+                   "description": "url de classificação"
+                },
+                "merchant_id": {
+                   "type": "integer",
+                   "description": "A id da empresa. O merchant_id pode ser nulo, se o desenvolvedor trabalhar com apenas uma empresa.",
+                   "format": "int32"
+                },
+                "message_id": {
+                   "type": "string",
+                   "description": "Se um SMS ou e-mail foi enviado, o ID do SMS ou mensagem de e-mail."
+                },
+                "note_token": {
+                   "type": "string",
+                   "description": "O token usado para uma nota sobre este local compartilhado."
+                },
+                "tip_token": {
+                   "type": "string",
+                   "description": "Se o cliente derrubou o usuário (driver), o token usado para essa dica."
+                },
+                "find_me_token": {
+                   "type": "string",
+                   "description": "O token usado quando o cliente usa o recurso find me."
+                },
+                "sms_price": {
+                   "type": "string",
+                   "description": "A descrição deste parâmetro está pendente."
+                },
+                "tag_id": {
+                   "type": "integer",
+                   "description": "Se existe uma tag, esta é a identificação da guia Bringg.",
+                   "format": "int32"
+                },
+                "sms_delivered": {
+                   "type": "string",
+                   "description": "Se o SMS foi entregue, a data e hora do SMS de entrega. Isso está em UTC e está no formato é \" %Y-%m-%dT%H:%M:%S%z\""
+                },
+                "update_customer_token": {
+                   "type": "string",
+                   "description": "O token usado para atualizar o cliente."
+                },
+                "pickup_uuid": {
+                   "type": "string",
+                   "description": "O token usado para uma retirada neste local compartilhado."
+                },
+                "sent_eta": {
+                   "type": "string"
+                },
+                "opt_in_out_token": {
+                   "type": "string"
+                },
+                "action_tokens": {
+                   "type": "string"
+                },
+                "expire_at": {
+                   "type": "string",
+                   "description": "expira em"
+                },
+                "secure_uuid": {
+                   "type": "string"
+                },
+                "cancel_token": {
+                   "type": "string"
+                }
+             },
+             "description": "Localização compartilhada"
+          },
+          "SharedLocationRequest": {
+             "type": "object",
+             "properties": {
+                "shared_location": {
+                   "$ref": "#/components/schemas/SharedLocation"
+                },
+                "webhook_type": {
+                   "type": "string",
+                   "description": "Tipo de webhook"
+                },
+                "merchant_id": {
+                   "type": "integer",
+                   "description": "Id do comerciante",
+                   "format": "int32"
+                }
+             },
+             "description": "Objeto com dados da localização do entregador Bringg"
+          },
+          "Task": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "description": "Id da tarefa",
+                   "format": "int64"
+                },
+                "title": {
+                   "type": "string",
+                   "description": "Título"
+                },
+                "status": {
+                   "type": "integer",
+                   "description": "Status",
+                   "format": "int32"
+                },
+                "customer": {
+                   "$ref": "#/components/schemas/Customer"
+                },
+                "user": {
+                   "$ref": "#/components/schemas/User"
+                },
+                "vehicle": {
+                   "$ref": "#/components/schemas/Vehicle"
+                },
+                "tag_id": {
+                   "type": "integer",
+                   "description": "Id da tag",
+                   "format": "int64"
+                },
+                "customer_id": {
+                   "type": "integer",
+                   "description": "id do cliente",
+                   "format": "int64"
+                },
+                "user_id": {
+                   "type": "integer",
+                   "description": "Id do usuário",
+                   "format": "int64"
+                },
+                "started_time": {
+                   "type": "string",
+                   "description": "Data e hora inicio"
+                },
+                "ended_time": {
+                   "type": "string",
+                   "description": "Data e hora fim"
+                },
+                "external_id": {
+                   "type": "string",
+                   "description": "Id externo"
+                },
+                "priority": {
+                   "type": "string",
+                   "description": "prioridade"
+                },
+                "run_start_time": {
+                   "type": "string",
+                   "description": "Hora de inicio"
+                },
+                "task_type_id": {
+                   "type": "integer",
+                   "description": "id do tipo de tarefa",
+                   "format": "int32"
+                },
+                "last_assigned_time": {
+                   "type": "string",
+                   "description": "último horario atribuido"
+                },
+                "teams": {
+                   "type": "array",
+                   "description": "Rotas de entrega",
+                   "items": {
+                      "$ref": "#/components/schemas/Teams"
+                   }
+                },
+                "task_notes": {
+                   "type": "array",
+                   "description": "Rotas de entrega",
+                   "items": {
+                      "$ref": "#/components/schemas/TaskNotes"
+                   }
+                },
+                "updated_at": {
+                   "type": "string",
+                   "description": "atualizado em"
+                },
+                "created_at": {
+                   "type": "string",
+                   "description": "Criado em"
+                },
+                "run_end_time": {
+                   "type": "string",
+                   "description": "hora de término"
+                },
+                "distance_traveled": {
+                   "type": "string"
+                },
+                "cancelled_at": {
+                   "type": "string"
+                },
+                "cancellation_lat": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "cancellation_lng": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "parent_task_id": {
+                   "type": "string"
+                },
+                "required_skills": {
+                   "type": "array",
+                   "items": {
+                      "type": "string"
+                   }
+                },
+                "planning_done": {
+                   "type": "boolean"
+                },
+                "way_points": {
+                   "type": "array",
+                   "items": {
+                      "$ref": "#/components/schemas/WayPoints"
+                   }
+                },
+                "task_cancellation_reason": {
+                   "$ref": "#/components/schemas/TaskCancellationReason"
+                },
+                "run_uuid": {
+                   "type": "string"
+                },
+                "acknowledged_at": {
+                   "type": "string"
+                },
+                "last_ready_to_execute_at": {
+                   "type": "string"
+                },
+                "failed_delivery_attempts": {
+                   "type": "integer",
+                   "format": "int32"
+                },
+                "run_id": {
+                   "type": "integer",
+                   "format": "int64"
+                }
+             },
+             "description": "Tarefa"
+          },
+          "TaskCancellationReason": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "format": "int64"
+                },
+                "other_text": {
+                   "type": "string"
+                },
+                "created_at": {
+                   "type": "string"
+                },
+                "reason_to_cancel_task_id": {
+                   "type": "integer",
+                   "format": "int64"
+                },
+                "reason_to_cancel_task": {
+                   "$ref": "#/components/schemas/ReasonToCancelTask"
+                }
+             }
+          },
+          "TaskNotes": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "description": "Id",
+                   "format": "int64"
+                },
+                "note": {
+                   "type": "object"
+                },
+                "type": {
+                   "type": "string"
+                },
+                "url": {
+                   "type": "string"
+                },
+                "lat": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "lng": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "user_id": {
+                   "type": "integer",
+                   "format": "int64"
+                },
+                "created_at": {
+                   "type": "string"
+                },
+                "way_point_id": {
+                   "type": "integer",
+                   "format": "int64"
+                    },
+                "form_group_uuid": {
+                   "type": "string"
+                },
+                "action_id": {
+                   "type": "integer",
+                   "format": "int32"
+                },
+                "flow_uuid": {
+                   "type": "string"
+                },
+                "happened_at": {
+                   "type": "string"
+                },
+                "form_field_key": {
+                   "type": "string"
+                }
+             },
+             "description": "Rotas de entrega"
+          },
+          "Teams": {
+             "type": "object",
+             "properties": {
+                "name": {
+                   "type": "string",
+                   "description": "Id"
+                },
+                "id": {
+                   "type": "integer",
+                   "description": "Nome",
+                   "format": "int64"
+                }
+             },
+             "description": "Rotas de entrega"
+          },
+          "User": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "description": "Id do usuário",
+                   "format": "int64"
+                },
+                "name": {
+                   "type": "string",
+                   "description": "Nome"
+                },
+                "company": {
+                   "$ref": "#/components/schemas/Company"
+                },
+                "user_type_id": {
+                   "type": "string"
+                },
+                "job_description": {
+                   "type": "string"
+                },
+                "vehicle_type_id": {
+                   "type": "string",
+                   "description": "Id do tipo de veiculo"
+                },
+                "vehicle_skills": {
+                   "type": "array",
+                   "description": "Tipo de veiculo necessário",
+                   "items": {
+                      "type": "string",
+                      "description": "Tipo de veiculo necessário"
+                   }
+                }
+             },
+             "description": "Usuário"
+          },
+          "Vehicle": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "string"
+                },
+                "name": {
+                   "type": "string"
+                }
+             },
+             "description": "Veiculo"
+          },
+          "WayPoints": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "integer",
+                   "format": "int64"
+                },
+                "address": {
+                   "type": "string"
+                },
+                "position": {
+                   "type": "integer",
+                   "format": "int32"
+                },
+                "eta": {
+                   "type": "string"
+                },
+                "note": {
+                   "type": "string"
+                },
+                "created_at": {
+                   "type": "string"
+                },
+                "scheduled_at": {
+                   "type": "string"
+                },
+                "checkin_time": {
+                   "type": "string"
+                },
+                "checkout_time": {
+                   "type": "string"
+                },
+                "checkin_lat": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "checkin_lng": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "checkout_lat": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "checkout_lng": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "distance_traveled_client": {
+                   "type": "string"
+                },
+                "distance_traveled_server": {
+                   "type": "string"
+                },
+                "start_la": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "start_lng": {
+                   "type": "number",
+                   "format": "double"
+                },
+                "start_time": {
+                   "type": "string"
+                },
+                "zipcode": {
+                   "type": "string"
+                },
+                "pickup_dropoff_option": {
+                   "type": "integer",
+                   "format": "int64"
+                },
+                "distance_traveled": {
+                   "type": "number",
+                   "format": "double"
+                }
+             }
+          },
+          "BringgRequest": {
+             "type": "object",
+             "properties": {
+                "task": {
+                   "$ref": "#/components/schemas/Task"
+                },
+                "sharedLocation": {
+                   "$ref": "#/components/schemas/SharedLocation"
+                },
+                "webhook_type": {
+                   "type": "string",
+                   "description": "tipo de webhook"
+                },
+                "merchant_id": {
+                   "type": "integer",
+                   "description": "Id do comerciante",
+                   "format": "int32"
+                }
+             },
+             "description": "Objeto com os dados do Tracking com origem do parceiro Bringg"
+          },
+          "AddressRenner": {
+             "type": "object",
+             "properties": {
+                "description": {
+                   "type": "string",
+                   "description": "Descrição do endereço."
+                },
+                "addressComplement": {
+                   "type": "string",
+                   "description": "Dados complementares do endereço de entrega."
+                },
+                "street": {
+                   "type": "string",
+                   "description": "Rua"
+                },
+                "houseNumber": {
+                   "type": "string",
+                   "description": "Número da casa"
+                },
+                "quarter": {
+                   "type": "string",
+                   "description": "Quarteirão"
+                },
+                "addressType": {
+                   "type": "string",
+                   "description": "tipo do endereço do cliente"
+                },
+                "neighborhood": {
+                   "type": "string",
+                   "description": "Bairro"
+                },
+                "city": {
+                   "type": "string",
+                   "description": "Cidade"
+                },
+                "state": {
+                   "type": "string",
+                   "description": "Estado"
+                },
+                "country": {
+                   "type": "string",
+                   "description": "País"
+                },
+                "zipcode": {
+                   "type": "string",
+                   "description": "CEP"
+                },
+                "reference": {
+                   "type": "string",
+                   "description": "Ponto de referencia para entrega"
+                },
+                "latitude": {
+                   "type": "string",
+                   "description": "Localização atraves de coordenadas em Latitude"
+                },
+                "longitude": {
+                   "type": "string",
+                   "description": "Localização atraves de coordenadas em Longitude"
+                }
+             },
+             "description": "Informações sobre o endereço"
+          },
+          "InventoryInvoiceRenner": {
+             "type": "object",
+             "properties": {
+                "name": {
+                   "type": "string",
+                   "description": "Nome do produto"
+                },
+                "volumeNumber": {
+                   "type": "string",
+                   "description": "numero do volume"
+                },
+                "volumeTypeCode": {
+                   "type": "string",
+                   "description": "Código do tipo de volume"
+                },
+                "scanString": {
+                   "type": "string",
+                   "description": "Varredura"
+                },
+                "quantity": {
+                   "type": "integer",
+                   "description": "Quantidade",
+                   "format": "int64"
+                },
+                "weight": {
+                   "type": "number",
+                   "description": "Peso do volume",
+                   "format": "double"
+                },
+                "height": {
+                   "type": "number",
+                   "description": "Altura do volume",
+                   "format": "double"
+                },
+                "lenght": {
+                   "type": "number",
+                   "description": "Comprimento do volume",
+                   "format": "double"
+                },
+                "width": {
+                   "type": "number",
+                   "description": "Largura do volume",
+                   "format": "double"
+                },
+                "pending": {
+                   "type": "boolean",
+                   "description": "Está pendente"
+                },
+                "occurrenceDeliveryId": {
+                   "type": "integer",
+                   "description": "Código da ocorrência de entrega",
+                   "format": "int64"
+                },
+                "occurrenceRefuseId": {
+                   "type": "integer",
+                   "description": "Código da ocorrência de recusa (quando existir)",
+                   "format": "int64"
+                }
+             },
+             "description": "Inventário"
+          },
+          "OccurrenceRenner": {
+             "required": [
+                "occurenceDate"
+             ],
+             "type": "object",
+             "properties": {
+                "deliveryTypeId": {
+                   "type": "integer",
+                   "description": "Código do tipo de entrega conforme Tabela de Códigos",
+                   "format": "int64"
+                },
+                "deliveryTypeDescription": {
+                   "type": "string",
+                   "description": "Descrição do tipo de entrega"
+                },
+                "occurenceDate": {
+                   "type": "string",
+                   "description": "Data da ocorrência",
+                   "format": "date-time"
+                },
+                "notes": {
+                   "type": "array",
+                   "description": "Observações na ocorrência",
+                   "items": {
+                      "type": "string",
+                      "description": "Observações na ocorrência"
+                   }
+                },
+                "scheduleDate": {
+                   "type": "string",
+                   "description": "Data do agendamento para entrega",
+                   "format": "date-time"
+                },
+                "recepientDocument": {
+                   "type": "string",
+                   "description": "Documento do recebedor"
+                },
+                "recepientName": {
+                   "type": "string",
+                   "description": "Nome do recebedor"
+                },
+                "address": {
+                   "$ref": "#/components/schemas/AddressRenner"
+                },
+                "media": {
+                   "type": "array",
+                   "items": {
+                      "type": "string"
+                   }
+                }
+             },
+             "description": "Informações da ocorrencia de entrega"
+          },
+          "OrderTrackingRenner": {
+             "required": [
+                "occurrence",
+                "orderNumber",
+                "orderVolumeInvoice"
+             ],
+             "type": "object",
+             "properties": {
+                "orderNumber": {
+                   "type": "string",
+                   "description": "Id do pedido"
+                },
+                "estimatedDeliveryDate": {
+                   "type": "string",
+                   "description": "Data estimada para a entrega",
+                   "format": "date-time"
+                },
+                "trackingUrl": {
+                   "type": "string",
+                   "description": "URL do tracking"
+                },
+                "occurrence": {
+                   "$ref": "#/components/schemas/OccurrenceRenner"
+                },
+                "orderVolumeInvoice": {
+                   "$ref": "#/components/schemas/OrderVolumeRenner"
+                },
+                "shippment": {
+                   "$ref": "#/components/schemas/ShippmentRenner"
+                },
+                "sharedUrl": {
+                   "type": "string",
+                   "description": "Url compartilhada"
+                },
+                "ratingUrl": {
+                   "type": "string",
+                   "description": "Url de avaliação"
+                }
+             },
+             "description": "Objeto com os dados do Tracking"
+          },
+          "OrderVolumeRenner": {
+             "required": [
+                "shipmentOrderVolumeId",
+                "shipmentState"
+             ],
+             "type": "object",
+             "properties": {
+                "invoiceNumber": {
+                   "type": "string",
+                   "description": "Número da NFe"
+                },
+                "invoiceSeries": {
+                   "type": "string",
+                   "description": "Série da NFe"
+                },
+                "invoiceKey": {
+                   "type": "string",
+                   "description": "Chave da NFe"
+                },
+                "invoiceDate": {
+                   "type": "string",
+                   "description": "Data da NFe",
+                   "format": "date-time"
+                },
+                "invoiceTotalValue": {
+                   "type": "number",
+                   "description": "Valor Total da NFe"
+                },
+                "orderTypeId": {
+                   "type": "integer",
+                   "description": "Indique o tipo de operação do pedido: Retirada (2), Devolução (3), Entrega (4) ou Retirada e Entrega (5)",
+                   "format": "int64"
+                },
+                "orderSentType": {
+                   "type": "string",
+                   "description": "Tipo de envio do pedido"
+                },
+                "grossWeight": {
+                   "type": "number",
+                   "description": "Peso bruto total",
+                   "format": "double"
+                },
+                "volumeQuantity": {
+                   "type": "integer",
+                   "description": "Quantidade de volumes",
+                   "format": "int64"
+                },
+                "shipmentState": {
+                   "type": "string",
+                   "description": "Código de status da ocorrencia, baseado nos status do OCORREN 5.0"
+                },
+                "shipmentOrderVolumeId": {
+                   "type": "integer",
+                   "description": "Identificador único do volume por pedido que será utilizado depois para poder alterar informações de volume",
+                   "format": "int64"
+                },
+                "inventory": {
+                   "type": "array",
+                   "description": "Inventário",
+                   "items": {
+                      "$ref": "#/components/schemas/InventoryInvoiceRenner"
+                   }
+                }
+             },
+             "description": "Informações da NFe para o Volume do Pedido de Remessa"
+          },
+          "ShipperRenner": {
+             "type": "object",
+             "properties": {
+                "cnpj": {
+                   "type": "string",
+                   "description": "CNPJ"
+                },
+                "name": {
+                   "type": "string",
+                   "description": "Nome"
+                }
+             },
+             "description": "Provedor logístico"
+          },
+          "ShippmentRenner": {
+             "type": "object",
+             "properties": {
+                "shipper": {
+                   "$ref": "#/components/schemas/ShipperRenner"
+                },
+                "logisticProvider": {
+                   "$ref": "#/components/schemas/ShipperRenner"
+                },
+                "customerId": {
+                   "type": "string",
+                   "description": "Id do cliente"
+                }
+             },
+             "description": "Informações dos envolvidos na Remessa"
+          },
+          "AtgDto": {
+             "type": "object",
+             "properties": {
+                "status": {
+                   "type": "string",
+                   "description": "status"
+                },
+                "notify": {
+                   "type": "boolean",
+                   "description": "Notificação"
+                }
+             },
+             "description": "Atg"
+          },
+          "ConfigDto": {
+             "type": "object",
+             "properties": {
+                "intelipost": {
+                   "$ref": "#/components/schemas/IntelipostDto"
+                },
+                "atg": {
+                   "$ref": "#/components/schemas/AtgDto"
+                },
+                "vtex": {
+                   "type": "array",
+                   "description": "vtex",
+                   "items": {
+                      "$ref": "#/components/schemas/VtexDto"
+                   }
+                }
+             },
+             "description": "Informação de configuração de cada um dos trackings padrão Renner, Frete Rápido e VTEX"
+          },
+          "IntelipostDto": {
+             "type": "object",
+             "properties": {
+                "companyId": {
+                   "type": "string",
+                   "description": "Id da empresa"
+                },
+                "partnerId": {
+                   "type": "string",
+                   "description": "Id do parceiro"
+                },
+                "partnerPlatform": {
+                   "type": "string",
+                   "description": "Plataforma do parceiro"
+                },
+                "statusName": {
+                   "type": "string",
+                   "description": "Status"
+                },
+                "codeTo": {
+                   "type": "string",
+                   "description": "Código no padrão atg"
+                },
+                "cancelation": {
+                   "type": "boolean",
+                   "description": "Cancelamento"
+                },
+                "codeFrom": {
+                   "type": "string",
+                   "description": "Código que vem no padrão intelipost"
+                },
+                "description": {
+                   "type": "string",
+                   "description": "Descrição"
+                },
+                "notify": {
+                   "type": "boolean"
+                }
+             },
+             "description": "Intelipost"
+          },
+          "NotifiedDetail": {
+             "type": "object",
+             "properties": {
+                "atgMacro": {
+                   "type": "boolean"
+                },
+                "atgMicro": {
+                   "type": "boolean"
+                },
+                "intelipost": {
+                   "type": "boolean"
+                },
+                "vtex": {
+                   "type": "boolean"
+                },
+                "uello": {
+                   "type": "boolean"
+                },
+                "oms": {
+                   "type": "boolean"
+                },
+                "gpc": {
+                   "type": "boolean"
+                }
+             },
+             "description": "Detalhes de notificação"
+          },
+          "ProcessedTrackingDto": {
+             "type": "object",
+             "properties": {
+                "id": {
+                   "type": "string",
+                   "description": "Id"
+                },
+                "partnerId": {
+                   "type": "string",
+                   "description": "Id do parceiro"
+                },
+                "companyId": {
+                   "type": "string",
+                   "description": "Id da empresa"
+                },
+                "transportOrderNumber": {
+                   "type": "string",
+                   "description": "número da ordem"
+                },
+                "receivedDate": {
+                   "type": "string",
+                   "description": "data de recebido o retorno",
+                   "format": "date-time"
+                },
+                "status": {
+                   "type": "string",
+                   "description": "Status"
+                },
+                "intelipostMicroStateCode": {
+                   "type": "string",
+                   "description": "código do micro status"
+                },
+                "intelipostMicroStateName": {
+                   "type": "string",
+                   "description": "nome do micro status"
+                },
+                "rennerInvoiceNumber": {
+                   "type": "string",
+                   "description": "número da nota fiscal"
+                },
+                "rennerInvoiceKey": {
+                   "type": "string",
+                   "description": "Chave da nota fiscal"
+                },
+                "rennerShipmentState": {
+                   "type": "string",
+                   "description": "estado de envio"
+                },
+                "rennerOccurenceDate": {
+                   "type": "string",
+                   "description": "Data da ocorrência"
+                },
+                "notifiedDetail": {
+                   "$ref": "#/components/schemas/NotifiedDetail"
+                },
+                "config": {
+                   "type": "array",
+                   "description": "Informação de configuração de cada um dos trackings padrão Renner, Frete Rápido e VTEX",
+                   "items": {
+                      "$ref": "#/components/schemas/ConfigDto"
+                   }
+                },
+                "partnerPlatformId": {
+                   "type": "integer",
+                   "description": "id da plataforma",
+                   "format": "int32"
+                },
+                "partnerPlatformName": {
+                   "type": "string",
+                   "description": "nome da plataforma"
+                },
+                "intelipostTrackingUrl": {
+                   "type": "string",
+                   "description": "url do tracking da intelipost"
+                }
+             }
+          },
+          "VtexDto": {
+             "type": "object",
+             "properties": {
+                "companyId": {
+                   "type": "string",
+                   "description": "Id da empresa"
+                },
+                "partnerPlatform": {
+                   "type": "string",
+                   "description": "Plataforma do parceiro"
+                },
+                "sellerId": {
+                   "type": "string",
+                   "description": "Id do vendedor"
+                },
+                "notify": {
+                   "type": "boolean",
+                   "description": "Notificação"
+                }
+             },
+             "description": "vtex"
+          }
+       },
+       "securitySchemes": {
+          "ApiKeyAuth": {
+             "type": "apiKey",
+             "name": "apiKey",
+             "in": "header"
+          },
+          "BasicAuth": {
+             "type": "http",
+             "scheme": "basic"
+          },
+          "OAuth2": {
+             "type": "oauth2",
+             "flows": {
+                "clientCredentials": {
+                   "tokenUrl": "/token",
+                   "scopes": {}
+                }
+             }
+          }
+       }
+    }
+ }
+ 

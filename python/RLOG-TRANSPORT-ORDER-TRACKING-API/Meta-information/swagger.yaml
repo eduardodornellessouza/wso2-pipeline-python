@@ -1,0 +1,1472 @@
+components:
+  schemas:
+    AddressRenner:
+      description: Informações sobre o endereço
+      properties:
+        addressComplement:
+          description: Dados complementares do endereço de entrega.
+          type: string
+        addressType:
+          description: tipo do endereço do cliente
+          type: string
+        city:
+          description: Cidade
+          type: string
+        country:
+          description: País
+          type: string
+        description:
+          description: Descrição do endereço.
+          type: string
+        houseNumber:
+          description: Número da casa
+          type: string
+        latitude:
+          description: Localização atraves de coordenadas em Latitude
+          type: string
+        longitude:
+          description: Localização atraves de coordenadas em Longitude
+          type: string
+        neighborhood:
+          description: Bairro
+          type: string
+        quarter:
+          description: Quarteirão
+          type: string
+        reference:
+          description: Ponto de referencia para entrega
+          type: string
+        state:
+          description: Estado
+          type: string
+        street:
+          description: Rua
+          type: string
+        zipcode:
+          description: CEP
+          type: string
+      type: object
+    AtgDto:
+      description: Atg
+      properties:
+        notify:
+          description: Notificação
+          type: boolean
+        status:
+          description: status
+          type: string
+      type: object
+    Attachments:
+      description: Dados dos anexos
+      properties:
+        file_name:
+          description: Nome do arquivo
+          type: string
+        mime_type:
+          description: Identificação da extensão dos anexos.
+          type: string
+        processing_status:
+          description: Status do processamento
+          type: string
+        type:
+          description: Tipo do arquivo
+          type: string
+      type: object
+    BringgRequest:
+      description: Objeto com os dados do Tracking com origem do parceiro Bringg
+      properties:
+        merchant_id:
+          description: Id do comerciante
+          format: int32
+          type: integer
+        sharedLocation:
+          $ref: '#/components/schemas/SharedLocation'
+        task:
+          $ref: '#/components/schemas/Task'
+        webhook_type:
+          description: tipo de webhook
+          type: string
+      type: object
+    Company:
+      description: Empresa
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+      type: object
+    ConfigDto:
+      description: Informação de configuração de cada um dos trackings padrão Renner,
+        Frete Rápido e VTEX
+      properties:
+        atg:
+          $ref: '#/components/schemas/AtgDto'
+        intelipost:
+          $ref: '#/components/schemas/IntelipostDto'
+        vtex:
+          description: vtex
+          items:
+            $ref: '#/components/schemas/VtexDto'
+          type: array
+      type: object
+    Customer:
+      description: Cliente
+      properties:
+        name:
+          description: Nome
+          type: string
+      type: object
+    EstimatedDeliveryDate:
+      description: Data estimada de entrega do pedido
+      properties:
+        client:
+          $ref: '#/components/schemas/IntelipostDate'
+        logistic_provider:
+          $ref: '#/components/schemas/IntelipostDate'
+      type: object
+    ExternalOrderNumbers:
+      description: Número de ordem externo
+      properties:
+        sales:
+          description: Vendas
+          type: string
+      type: object
+    Extra:
+      description: Extra
+      properties:
+        _type:
+          description: Tipo do arquivo
+          type: string
+      type: object
+    FreteRapidoRequest:
+      description: Objeto com os dados do Tracking
+      properties:
+        canal:
+          description: Nome do canal informado frete
+          type: string
+        codigo:
+          description: Código da ocorrência. Vide todas as ocorrências disponíveis
+            na Frete Rápido (STATUS)
+          format: int32
+          type: integer
+        data_atualizacao:
+          description: Data e hora da atualização da ocorrência pela transportadora
+          type: string
+        data_ocorrencia:
+          description: Data e hora da ocorrência pela transportadora informada à Frete
+            Rápido
+          type: string
+        data_reentrega:
+          description: Data de previsão de nova tentativa de entrega ao destinatário
+          type: string
+        id_frete:
+          description: Id do frete
+          type: string
+        mensagem:
+          description: Mensagem de texto livre da transportadora
+          type: string
+        metadados:
+          items:
+            $ref: '#/components/schemas/Metadado'
+          type: array
+        nome:
+          description: Nome da ocorrência
+          type: string
+        notas_fiscais:
+          description: Notas fiscais
+          items:
+            $ref: '#/components/schemas/NotaFiscal'
+          type: array
+        numero_pedido:
+          description: Númedo do pedido
+          type: string
+        numero_pedido_pai:
+          description: Númedo do pedido Pai
+          type: string
+        prazo_devolucao:
+          description: Prazo em dias úteis para devolução da carga
+          type: string
+        transportadora:
+          $ref: '#/components/schemas/Transportadora'
+      required:
+      - codigo
+      - data_atualizacao
+      - data_ocorrencia
+      - id_frete
+      - nome
+      - notas_fiscais
+      - numero_pedido
+      type: object
+    History:
+      description: Histórico
+      properties:
+        attachments:
+          description: Dados dos anexos
+          items:
+            $ref: '#/components/schemas/Attachments'
+          type: array
+        created:
+          description: Data de criação do evento em Unix Timestamp.
+          format: int64
+          type: integer
+        created_iso:
+          description: Data de criação do evento.
+          type: string
+        esprinter_message:
+          description: Mensagem traduzida no modelo Intelipost.
+          type: string
+        event_date:
+          description: Data do evento em Unix Timestamp.
+          format: int64
+          type: integer
+        event_date_iso:
+          description: Data do evento.
+          type: string
+        extra:
+          description: Extra
+          items:
+            $ref: '#/components/schemas/Extra'
+          type: array
+        location:
+          $ref: '#/components/schemas/Location'
+        provider_message:
+          description: Mensagem enviada pelo transportador.
+          type: string
+        provider_state:
+          description: Status enviado pelo transportador.
+          type: string
+        request_hash:
+          description: requisição
+          type: string
+        request_origin:
+          description: Origem da requisição
+          type: string
+        shipment_order_volume_id:
+          description: Id do volume do pedido de envio.
+          format: int64
+          type: integer
+        shipment_order_volume_state:
+          description: Macro status do volume do pedido de envio
+          type: string
+        shipment_order_volume_state_history:
+          description: Histórico do volume.
+          format: int64
+          type: integer
+        shipment_order_volume_state_localized:
+          description: Status atual do volume do pedido de envio.
+          type: string
+        shipment_volume_micro_state:
+          $ref: '#/components/schemas/ShipmentVolumeMicroState'
+        shipper_provider_state:
+          description: Código de ocorrência do transportador enviado pelo embarcador.
+          type: string
+        tracking_state:
+          description: Status do rastreamento
+          type: string
+      type: object
+    IntelipostDate:
+      description: Provedor logístico
+      properties:
+        current:
+          description: Data estimada de entrega (transportadora) atual em Unix Timestamp
+          format: int64
+          type: integer
+        current_iso:
+          description: Data estimada de entrega (transportadora) atual em Timestamp
+          type: string
+        original:
+          description: Data estimada de entrega (transportadora) sem nenhuma regra
+            de negócio aplicada. É enviado no formato unix timestamp
+          format: int64
+          type: integer
+        original_iso:
+          description: Data estimada de entrega (transportadora) sem nenhuma regra
+            de negócio aplicada. É enviado no formato unix timestamp.
+          type: string
+      type: object
+    IntelipostDto:
+      description: Intelipost
+      properties:
+        cancelation:
+          description: Cancelamento
+          type: boolean
+        codeFrom:
+          description: Código que vem no padrão intelipost
+          type: string
+        codeTo:
+          description: Código no padrão atg
+          type: string
+        companyId:
+          description: Id da empresa
+          type: string
+        description:
+          description: Descrição
+          type: string
+        notify:
+          type: boolean
+        partnerId:
+          description: Id do parceiro
+          type: string
+        partnerPlatform:
+          description: Plataforma do parceiro
+          type: string
+        statusName:
+          description: Status
+          type: string
+      type: object
+    IntelipostRequest:
+      description: Objeto com os dados do Tracking com origem do parceiro Intelipost
+      properties:
+        estimated_delivery_date:
+          $ref: '#/components/schemas/EstimatedDeliveryDate'
+        external_order_numbers:
+          $ref: '#/components/schemas/ExternalOrderNumbers'
+        extra:
+          $ref: '#/components/schemas/Extra'
+        history:
+          $ref: '#/components/schemas/History'
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+        location:
+          $ref: '#/components/schemas/Location'
+        order_number:
+          description: Número da ordem da remessa
+          type: string
+        sales_order_number:
+          description: Número do pedido
+          type: string
+        shipmentVolumeMicroState:
+          $ref: '#/components/schemas/ShipmentVolumeMicroState'
+        tracking_code:
+          description: Código do tracking
+          type: string
+        tracking_url:
+          description: URL de rastreamento ondeestámeupedido criptografada.
+          type: string
+        volume_number:
+          description: Número do volume
+          type: string
+      type: object
+    InventoryInvoiceRenner:
+      description: Inventário
+      properties:
+        height:
+          description: Altura do volume
+          format: double
+          type: number
+        lenght:
+          description: Comprimento do volume
+          format: double
+          type: number
+        name:
+          description: Nome do produto
+          type: string
+        occurrenceDeliveryId:
+          description: Código da ocorrência de entrega
+          format: int64
+          type: integer
+        occurrenceRefuseId:
+          description: Código da ocorrência de recusa (quando existir)
+          format: int64
+          type: integer
+        pending:
+          description: Está pendente
+          type: boolean
+        quantity:
+          description: Quantidade
+          format: int64
+          type: integer
+        scanString:
+          description: Varredura
+          type: string
+        volumeNumber:
+          description: numero do volume
+          type: string
+        volumeTypeCode:
+          description: Código do tipo de volume
+          type: string
+        weight:
+          description: Peso do volume
+          format: double
+          type: number
+        width:
+          description: Largura do volume
+          format: double
+          type: number
+      type: object
+    Invoice:
+      description: Nota fiscal
+      properties:
+        invoice_key:
+          description: Chave da nota fiscal
+          type: string
+        invoice_number:
+          description: Número da nota fiscal
+          type: string
+        invoice_series:
+          description: Série da nota fiscal
+          type: string
+      type: object
+    Location:
+      description: Localização
+      properties:
+        additional:
+          description: Complemento
+          type: string
+        address:
+          description: endereço
+          type: string
+        city:
+          description: cidade
+          type: string
+        description:
+          description: Descrição
+          type: string
+        latitude:
+          description: Latitute
+          format: double
+          type: number
+        longitude:
+          description: Longitude
+          format: double
+          type: number
+        number:
+          description: número
+          type: string
+        quarter:
+          description: Bairro
+          type: string
+        reference:
+          description: Ponto de referência
+          type: string
+        state_code:
+          description: Código do estado
+          type: string
+        zip_code:
+          description: Cep
+          type: string
+      type: object
+    Metadado:
+      properties:
+        chave:
+          type: string
+        valor:
+          type: string
+      type: object
+    NotaFiscal:
+      description: Notas fiscais
+      properties:
+        chave_acesso:
+          description: Chave de acesso da nota fiscal
+          type: string
+        numero:
+          description: Número da nota fiscal
+          type: string
+        serie:
+          description: Série da nota fiscal
+          type: string
+      type: object
+    NotifiedDetail:
+      description: Detalhes de notificação
+      properties:
+        atgMacro:
+          type: boolean
+        atgMicro:
+          type: boolean
+        gpc:
+          type: boolean
+        intelipost:
+          type: boolean
+        oms:
+          type: boolean
+        uello:
+          type: boolean
+        vtex:
+          type: boolean
+      type: object
+    OccurrenceRenner:
+      description: Informações da ocorrencia de entrega
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressRenner'
+        deliveryTypeDescription:
+          description: Descrição do tipo de entrega
+          type: string
+        deliveryTypeId:
+          description: Código do tipo de entrega conforme Tabela de Códigos
+          format: int64
+          type: integer
+        media:
+          items:
+            type: string
+          type: array
+        notes:
+          description: Observações na ocorrência
+          items:
+            description: Observações na ocorrência
+            type: string
+          type: array
+        occurenceDate:
+          description: Data da ocorrência
+          format: date-time
+          type: string
+        recepientDocument:
+          description: Documento do recebedor
+          type: string
+        recepientName:
+          description: Nome do recebedor
+          type: string
+        scheduleDate:
+          description: Data do agendamento para entrega
+          format: date-time
+          type: string
+      required:
+      - occurenceDate
+      type: object
+    OrderTrackingRenner:
+      description: Objeto com os dados do Tracking
+      properties:
+        estimatedDeliveryDate:
+          description: Data estimada para a entrega
+          format: date-time
+          type: string
+        occurrence:
+          $ref: '#/components/schemas/OccurrenceRenner'
+        orderNumber:
+          description: Id do pedido
+          type: string
+        orderVolumeInvoice:
+          $ref: '#/components/schemas/OrderVolumeRenner'
+        ratingUrl:
+          description: Url de avaliação
+          type: string
+        sharedUrl:
+          description: Url compartilhada
+          type: string
+        shippment:
+          $ref: '#/components/schemas/ShippmentRenner'
+        trackingUrl:
+          description: URL do tracking
+          type: string
+      required:
+      - occurrence
+      - orderNumber
+      - orderVolumeInvoice
+      type: object
+    OrderVolumeRenner:
+      description: Informações da NFe para o Volume do Pedido de Remessa
+      properties:
+        grossWeight:
+          description: Peso bruto total
+          format: double
+          type: number
+        inventory:
+          description: Inventário
+          items:
+            $ref: '#/components/schemas/InventoryInvoiceRenner'
+          type: array
+        invoiceDate:
+          description: Data da NFe
+          format: date-time
+          type: string
+        invoiceKey:
+          description: Chave da NFe
+          type: string
+        invoiceNumber:
+          description: Número da NFe
+          type: string
+        invoiceSeries:
+          description: Série da NFe
+          type: string
+        invoiceTotalValue:
+          description: Valor Total da NFe
+          type: number
+        orderSentType:
+          description: Tipo de envio do pedido
+          type: string
+        orderTypeId:
+          description: 'Indique o tipo de operação do pedido: Retirada (2), Devolução
+            (3), Entrega (4) ou Retirada e Entrega (5)'
+          format: int64
+          type: integer
+        shipmentOrderVolumeId:
+          description: Identificador único do volume por pedido que será utilizado
+            depois para poder alterar informações de volume
+          format: int64
+          type: integer
+        shipmentState:
+          description: Código de status da ocorrencia, baseado nos status do OCORREN
+            5.0
+          type: string
+        volumeQuantity:
+          description: Quantidade de volumes
+          format: int64
+          type: integer
+      required:
+      - shipmentOrderVolumeId
+      - shipmentState
+      type: object
+    ProcessedTrackingDto:
+      properties:
+        companyId:
+          description: Id da empresa
+          type: string
+        config:
+          description: Informação de configuração de cada um dos trackings padrão
+            Renner, Frete Rápido e VTEX
+          items:
+            $ref: '#/components/schemas/ConfigDto'
+          type: array
+        id:
+          description: Id
+          type: string
+        intelipostMicroStateCode:
+          description: código do micro status
+          type: string
+        intelipostMicroStateName:
+          description: nome do micro status
+          type: string
+        intelipostTrackingUrl:
+          description: url do tracking da intelipost
+          type: string
+        notifiedDetail:
+          $ref: '#/components/schemas/NotifiedDetail'
+        partnerId:
+          description: Id do parceiro
+          type: string
+        partnerPlatformId:
+          description: id da plataforma
+          format: int32
+          type: integer
+        partnerPlatformName:
+          description: nome da plataforma
+          type: string
+        receivedDate:
+          description: data de recebido o retorno
+          format: date-time
+          type: string
+        rennerInvoiceKey:
+          description: Chave da nota fiscal
+          type: string
+        rennerInvoiceNumber:
+          description: número da nota fiscal
+          type: string
+        rennerOccurenceDate:
+          description: Data da ocorrência
+          type: string
+        rennerShipmentState:
+          description: estado de envio
+          type: string
+        status:
+          description: Status
+          type: string
+        transportOrderNumber:
+          description: número da ordem
+          type: string
+      type: object
+    ReasonToCancelTask:
+      properties:
+        reason:
+          type: string
+      type: object
+    SharedLocation:
+      description: Localização compartilhada
+      properties:
+        action_tokens:
+          type: string
+        cancel_token:
+          type: string
+        created_at:
+          description: A data e a hora em que esta ordem foi criada. Isso está em
+            UTC e está no formato é " %Y-%m-%dT%H:%M:%S%z"
+          type: string
+        customer_id:
+          description: A ID do cliente com o qual esta ordem está associada.
+          format: int32
+          type: integer
+        expire_at:
+          description: expira em
+          type: string
+        expired:
+          description: Indica se o local compartilhado expirou, onde expirado significa
+            que o pedido foi concluído ou não permite assistir.
+          type: boolean
+        failure_reason:
+          description: Se o SMS e o e-mail falharam, o motivo da falha.
+          type: string
+        find_me_token:
+          description: O token usado quando o cliente usa o recurso find me.
+          type: string
+        first_seen_on:
+          description: A data e a hora em que o local compartilhado foi visto pela
+            primeira vez. Isso está em UTC e está no formato é " %Y-%m-%dT%H:%M:%S%z"
+          type: string
+        id:
+          description: A ID da ordem à qual o SMS está associado.
+          format: int32
+          type: integer
+        merchant_id:
+          description: A id da empresa. O merchant_id pode ser nulo, se o desenvolvedor
+            trabalhar com apenas uma empresa.
+          format: int32
+          type: integer
+        message_id:
+          description: Se um SMS ou e-mail foi enviado, o ID do SMS ou mensagem de
+            e-mail.
+          type: string
+        note_token:
+          description: O token usado para uma nota sobre este local compartilhado.
+          type: string
+        opt_in_out_token:
+          type: string
+        pickup_uuid:
+          description: O token usado para uma retirada neste local compartilhado.
+          type: string
+        rating_token:
+          description: O token usado para uma classificação neste local compartilhado.
+          type: string
+        rating_url:
+          description: url de classificação
+          type: string
+        secure_uuid:
+          type: string
+        sent_eta:
+          type: string
+        shared_on:
+          description: A data e a hora em que foi feita uma tentativa de compartilhar
+            este SMS. Isso está em UTC e está no formato é " %Y-%m-%dT%H:%M:%S%z"
+          type: string
+        shared_successfully:
+          description: Indica se o SMS sobre a localização compartilhada foi bem sucedido.
+          type: boolean
+        shared_type:
+          description: O tipo ou razão para o SMS.
+          format: int32
+          type: integer
+        sharing_method:
+          description: O tipo de compartilhamento de SMS.
+          format: int32
+          type: integer
+        sms_delivered:
+          description: Se o SMS foi entregue, a data e hora do SMS de entrega. Isso
+            está em UTC e está no formato é " %Y-%m-%dT%H:%M:%S%z"
+          type: string
+        sms_price:
+          description: A descrição deste parâmetro está pendente.
+          type: string
+        tag_id:
+          description: Se existe uma tag, esta é a identificação da guia Bringg.
+          format: int32
+          type: integer
+        task:
+          $ref: '#/components/schemas/Task'
+        task_id:
+          description: A ordem bringg id.
+          format: int32
+          type: integer
+        tip_token:
+          description: Se o cliente derrubou o usuário (driver), o token usado para
+            essa dica.
+          type: string
+        update_customer_token:
+          description: O token usado para atualizar o cliente.
+          type: string
+        updated_at:
+          description: A data e a hora da última atualização para esta ordem. Isso
+            está na UTC e está no formato é %Y-%m-%dT%H:%M:%S%z"..
+          type: string
+        url:
+          description: URL da página web para esta atualização de localização compartilhada.
+          type: string
+        user_id:
+          description: A identificação do usuário (motorista)
+          format: int32
+          type: integer
+        uuid:
+          description: A id universal única desta ordem.
+          type: string
+        view_counter:
+          description: A descrição deste parâmetro está pendente.
+          format: int32
+          type: integer
+        way_point_id:
+          description: A ID do ponto de como este SMS está associado.
+          format: int32
+          type: integer
+      type: object
+    SharedLocationRequest:
+      description: Objeto com dados da localização do entregador Bringg
+      properties:
+        merchant_id:
+          description: Id do comerciante
+          format: int32
+          type: integer
+        shared_location:
+          $ref: '#/components/schemas/SharedLocation'
+        webhook_type:
+          description: Tipo de webhook
+          type: string
+      type: object
+    ShipmentVolumeMicroState:
+      description: Volume de embarque de micro status
+      properties:
+        code:
+          description: Código Intelipost do micro status
+          type: string
+        default_name:
+          description: Nome padrão.
+          type: string
+        description:
+          description: Descrição do status
+          type: string
+        i18n_name:
+          description: Nome internacionalizado.
+          type: string
+        id:
+          description: Identificador Intelipost do micro status.
+          format: int64
+          type: integer
+        name:
+          description: Nome do stauts.
+          type: string
+        shipment_order_volume_state_id:
+          description: Identificador do volume.
+          format: int32
+          type: integer
+        shipment_volume_state:
+          description: Origem do volume
+          type: string
+        shipment_volume_state_localized:
+          description: Status atual do volume do pedido de envio.
+          type: string
+        shipment_volume_state_source_id:
+          description: Identificador da origem do volume.
+          format: int32
+          type: integer
+      type: object
+    ShipperRenner:
+      description: Provedor logístico
+      properties:
+        cnpj:
+          description: CNPJ
+          type: string
+        name:
+          description: Nome
+          type: string
+      type: object
+    ShippmentRenner:
+      description: Informações dos envolvidos na Remessa
+      properties:
+        customerId:
+          description: Id do cliente
+          type: string
+        logisticProvider:
+          $ref: '#/components/schemas/ShipperRenner'
+        shipper:
+          $ref: '#/components/schemas/ShipperRenner'
+      type: object
+    Task:
+      description: Tarefa
+      properties:
+        acknowledged_at:
+          type: string
+        cancellation_lat:
+          format: double
+          type: number
+        cancellation_lng:
+          format: double
+          type: number
+        cancelled_at:
+          type: string
+        created_at:
+          description: Criado em
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        customer_id:
+          description: id do cliente
+          format: int64
+          type: integer
+        distance_traveled:
+          type: string
+        ended_time:
+          description: Data e hora fim
+          type: string
+        external_id:
+          description: Id externo
+          type: string
+        failed_delivery_attempts:
+          format: int32
+          type: integer
+        id:
+          description: Id da tarefa
+          format: int64
+          type: integer
+        last_assigned_time:
+          description: último horario atribuido
+          type: string
+        last_ready_to_execute_at:
+          type: string
+        parent_task_id:
+          type: string
+        planning_done:
+          type: boolean
+        priority:
+          description: prioridade
+          type: string
+        required_skills:
+          items:
+            type: string
+          type: array
+        run_end_time:
+          description: hora de término
+          type: string
+        run_id:
+          format: int64
+          type: integer
+        run_start_time:
+          description: Hora de inicio
+          type: string
+        run_uuid:
+          type: string
+        started_time:
+          description: Data e hora inicio
+          type: string
+        status:
+          description: Status
+          format: int32
+          type: integer
+        tag_id:
+          description: Id da tag
+          format: int64
+          type: integer
+        task_cancellation_reason:
+          $ref: '#/components/schemas/TaskCancellationReason'
+        task_notes:
+          description: Rotas de entrega
+          items:
+            $ref: '#/components/schemas/TaskNotes'
+          type: array
+        task_type_id:
+          description: id do tipo de tarefa
+          format: int32
+          type: integer
+        teams:
+          description: Rotas de entrega
+          items:
+            $ref: '#/components/schemas/Teams'
+          type: array
+        title:
+          description: Título
+          type: string
+        updated_at:
+          description: atualizado em
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        user_id:
+          description: Id do usuário
+          format: int64
+          type: integer
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        way_points:
+          items:
+            $ref: '#/components/schemas/WayPoints'
+          type: array
+      type: object
+    TaskCancellationReason:
+      properties:
+        created_at:
+          type: string
+        id:
+          format: int64
+          type: integer
+        other_text:
+          type: string
+        reason_to_cancel_task:
+          $ref: '#/components/schemas/ReasonToCancelTask'
+        reason_to_cancel_task_id:
+          format: int64
+          type: integer
+      type: object
+    TaskNotes:
+      description: Rotas de entrega
+      properties:
+        action_id:
+          format: int32
+          type: integer
+        created_at:
+          type: string
+        flow_uuid:
+          type: string
+        form_field_key:
+          type: string
+        form_group_uuid:
+          type: string
+        happened_at:
+          type: string
+        id:
+          description: Id
+          format: int64
+          type: integer
+        lat:
+          format: double
+          type: number
+        lng:
+          format: double
+          type: number
+        note:
+          type: object
+        type:
+          type: string
+        url:
+          type: string
+        user_id:
+          format: int64
+          type: integer
+        way_point_id:
+          format: int64
+          type: integer
+      type: object
+    Teams:
+      description: Rotas de entrega
+      properties:
+        id:
+          description: Nome
+          format: int64
+          type: integer
+        name:
+          description: Id
+          type: string
+      type: object
+    TransportOrderTrackingReturn:
+      properties:
+        id:
+          description: Id
+          type: string
+        receivedDate:
+          description: Data de recebido
+          format: date-time
+          type: string
+        status:
+          description: Status
+          type: string
+      type: object
+    Transportadora:
+      description: Transportadora
+      properties:
+        cnpj:
+          type: string
+        razao_social:
+          type: string
+      type: object
+    User:
+      description: Usuário
+      properties:
+        company:
+          $ref: '#/components/schemas/Company'
+        id:
+          description: Id do usuário
+          format: int64
+          type: integer
+        job_description:
+          type: string
+        name:
+          description: Nome
+          type: string
+        user_type_id:
+          type: string
+        vehicle_skills:
+          description: Tipo de veiculo necessário
+          items:
+            description: Tipo de veiculo necessário
+            type: string
+          type: array
+        vehicle_type_id:
+          description: Id do tipo de veiculo
+          type: string
+      type: object
+    Vehicle:
+      description: Veiculo
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    VtexDto:
+      description: vtex
+      properties:
+        companyId:
+          description: Id da empresa
+          type: string
+        notify:
+          description: Notificação
+          type: boolean
+        partnerPlatform:
+          description: Plataforma do parceiro
+          type: string
+        sellerId:
+          description: Id do vendedor
+          type: string
+      type: object
+    WayPoints:
+      properties:
+        address:
+          type: string
+        checkin_lat:
+          format: double
+          type: number
+        checkin_lng:
+          format: double
+          type: number
+        checkin_time:
+          type: string
+        checkout_lat:
+          format: double
+          type: number
+        checkout_lng:
+          format: double
+          type: number
+        checkout_time:
+          type: string
+        created_at:
+          type: string
+        distance_traveled:
+          format: double
+          type: number
+        distance_traveled_client:
+          type: string
+        distance_traveled_server:
+          type: string
+        eta:
+          type: string
+        id:
+          format: int64
+          type: integer
+        note:
+          type: string
+        pickup_dropoff_option:
+          format: int64
+          type: integer
+        position:
+          format: int32
+          type: integer
+        scheduled_at:
+          type: string
+        start_la:
+          format: double
+          type: number
+        start_lng:
+          format: double
+          type: number
+        start_time:
+          type: string
+        zipcode:
+          type: string
+      type: object
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: apiKey
+      type: apiKey
+    BasicAuth:
+      scheme: basic
+      type: http
+    OAuth2:
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: /token
+      type: oauth2
+info:
+  contact:
+    email: guilherme.castro@mycompany.com.br
+    name: GUILHERME CASTRO
+  description: Renner Logistica - Tracking. API para receber registros de tracking
+    dos parceiros logísticos e encaminhar aos sistemas internos das Lojas Renner S/A.
+  title: RLOG-TRANSPORT-ORDER-TRACKING-API
+  version: 1.4.0.x
+openapi: 3.0.1
+paths:
+  /v1/transportOrderTracking:
+    post:
+      description: Receber atualização de Tracking de qualquer parceiro, seguindo
+        o padrão estabelecido pela Renner
+      operationId: createTransportOrderTracking_1
+      parameters:
+      - description: Id da Empresa
+        example: RENNER, CAMICADO, etc..
+        in: header
+        name: companyId
+        required: true
+        schema:
+          type: string
+      - description: Id do parceiro logístico
+        example: BRING, INTELIPOST
+        in: header
+        name: partnerId
+        required: true
+        schema:
+          type: string
+      - description: Origem do tracking (CD, Filial, etc.)
+        in: header
+        name: trackinOrigin
+        required: false
+        schema:
+          type: string
+      - description: Id do Seller
+        in: header
+        name: sellerId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderTrackingRenner'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Operação realizada com sucesso
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Pedido de Transporte com problemas nos dados.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Erro interno.
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      - OAuth2: []
+      summary: Receber atualização de Tracking seguindo o padrão Renner
+      tags:
+      - Transport Order Tracking
+  /v1/transportOrderTracking/{companyId}/intelipost:
+    post:
+      description: Receber atualização de Tracking do parceiro Intelipost que será
+        enviado ao parceiro (Plataforma)
+      operationId: createTransportOrderTrackingIntelipost
+      parameters:
+      - description: Id da Empresa
+        in: path
+        name: companyId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntelipostRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Operação realizada com sucesso
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Pedido de Transporte com problemas nos dados.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Erro interno.
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      - OAuth2: []
+      summary: Receber atualização de Tracking do parceiro Intelipost (Plataforma)
+      tags:
+      - Transport Order Tracking
+  /v1/transportOrderTracking/{transportOrderNumber}:
+    get:
+      description: Obter registros dos trackings processados por transportOrderTracking
+      operationId: getReceivedTrackingByTransportOrderNumber
+      parameters:
+      - description: Número da ordem
+        in: path
+        name: transportOrderNumber
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProcessedTrackingDto'
+                type: array
+          description: Operação realizada com sucesso
+        "400":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProcessedTrackingDto'
+                type: array
+          description: Pedido de Transporte com problemas nos dados.
+        "500":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProcessedTrackingDto'
+                type: array
+          description: Erro interno.
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      - OAuth2: []
+      summary: Obter registros dos trackings processados
+      tags:
+      - Transport Order Tracking
+  /v1/transportOrderTracking/bringg:
+    post:
+      description: Receber atualização de Tracking do parceiro Bringg que será enviado
+        ao parceiro (Plataforma)
+      operationId: createTransportOrderTrackingBringg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BringgRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Operação realizada com sucesso
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Pedido de Transporte com problemas nos dados.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Erro interno.
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      - OAuth2: []
+      summary: Receber atualização de Tracking do parceiro Bringg (Plataforma)
+      tags:
+      - Transport Order Tracking
+  /v1/transportOrderTracking/bringg/shared_location:
+    post:
+      description: Receber informações de localização do entregador na Bringg e envia-las
+        ao HUB GPC
+      operationId: sendBringgDeliverymanLocalization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharedLocationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Operação realizada com sucesso
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Pedido de Transporte com problemas nos dados.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Erro interno.
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      - OAuth2: []
+      summary: Receber informações de localização do entregador na Bringg
+      tags:
+      - Transport Order Tracking
+  /v1/transportOrderTracking/freterapido:
+    post:
+      description: Receber atualização de Tracking de qualquer parceiro, seguindo
+        o padrão estabelecido da Frete Rápido
+      operationId: createTransportOrderTracking
+      parameters:
+      - description: Id da Empresa
+        example: RENNER, CAMICADO
+        in: header
+        name: companyId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreteRapidoRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Operação realizada com sucesso
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Pedido de Transporte com problemas nos dados.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransportOrderTrackingReturn'
+          description: Erro interno.
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      - OAuth2: []
+      summary: Receber atualização de Tracking seguindo o padrão Frete Rápido
+      tags:
+      - Transport Order Tracking
+security:
+- ApiKeyAuth: []
+- BasicAuth: []
+- OAuth2: []
+servers:
+- url: /Logistics/transportationManagement/rlog/transportOrderTracking/
+tags:
+- description: registro de trackings dos parceiros logísticos
+  name: Transport Order Tracking

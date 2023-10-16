@@ -1,0 +1,23 @@
+{
+  "id": {
+    "providerName": "admin",
+    "apiName": "$$$nome_api$$$",
+    "version": "$$$versao_api$$$"
+  },
+  "description": "$$$descricao_api$$$",
+  "type": "HTTP",
+  "context": "/$$$contexto_api$$$/{version}",
+  "contextTemplate": "/$$$contexto_api$$$/{version}",
+  "tags": [
+    "Plataforma Logistica"
+  ],
+  "availableTiers": [{
+    "name": "Unlimited"
+  }],
+  "status": "CREATED",
+  "visibility": "public",
+  "transports": "http,https",
+  "productionUrl": "http://10.10.10.10:8080",
+  "sandboxUrl": "http://10.10.10.10:8081",
+  "enableStore": true
+}
