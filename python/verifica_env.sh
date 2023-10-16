@@ -13,12 +13,12 @@ else
     echo "ïnclui nova variavel"
     if [ $wso2env = "prd" ]; then
         apictl add-env -e prd \
-        --apim https://rnnprda1wsof001.mycompany.com.br:9443 \
-        --registration https://rnnprda1wsof001.mycompany.com.br:9443 \
-        --publisher https://rnnprda1wsof001.mycompany.com.br:9443 \
-        --devportal  https://rnnprda1wsof001.mycompany.com.br:9443 \
-        --admin  https://rnnprda1wsof001.mycompany.com.br:9443 \
-        --token https://apiprda1.mycompany.com.br/token
+        --apim https://mycloudprda1wsof001.mycompany.com.br:9443 \
+        --registration https://mycloudprda1wsof001.mycompany.com.br:9443 \
+        --publisher https://mycloudprda1wsof001.mycompany.com.br:9443 \
+        --devportal  https://mycloudprda1wsof001.mycompany.com.br:9443 \
+        --admin  https://mycloudprda1wsof001.mycompany.com.br:9443 \
+        --token https://myprda1.mycompany.com.br/token
     else
         apictl add-env -e $wso2env --apim $ambiente
     fi

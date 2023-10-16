@@ -6,34 +6,34 @@ import os
 
 # variaveis conforme ambiente do WSO2
 if os.environ['env_wso2'] == 'dev':
-    gera_token_url = "https://apideva1.mycompany.com.br/token"
-    busca_app_url = "https://rnndeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications?query=" + os.environ['nomeApp']
-    cria_app_url = "https://rnndeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications"
-    busca_apis_url = "https://rnndeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=" + os.environ['nomeApi']
-    busca_subs_url = "https://rnndeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/subscriptions?apiId="
-    cria_subs_url = "https://rnndeva1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions"
+    gera_token_url = "https://mydeva1.mycompany.com.br/token"
+    busca_app_url = "https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications?query=" + os.environ['nomeApp']
+    cria_app_url = "https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications"
+    busca_apis_url = "https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=" + os.environ['nomeApi']
+    busca_subs_url = "https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/subscriptions?apiId="
+    cria_subs_url = "https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions"
     gera_token_header_auth_value = "Basic <token_dev>"
     gera_token_header_username_value = "<user_dev>"
     gera_token_header_password_value = "<pass_dev>"
 
 if os.environ['env_wso2'] == 'hml':
-    gera_token_url = "https://apihmla1.mycompany.com.br/token"
-    busca_app_url = "https://rnnhmla1wsof001.mycompany.com.br:9443/api/am/store/v1/applications?query=" + os.environ['nomeApp']
-    cria_app_url = "https://rnnhmla1wsof001.mycompany.com.br:9443/api/am/store/v1/applications"
-    busca_apis_url = "https://rnnhmla1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=" + os.environ['nomeApi']
-    busca_subs_url = "https://rnnhmla1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/subscriptions?apiId="
-    cria_subs_url = "https://rnnhmla1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions"
+    gera_token_url = "https://myhmla1.mycompany.com.br/token"
+    busca_app_url = "https://mycloudhmla1wsof001.mycompany.com.br:9443/api/am/store/v1/applications?query=" + os.environ['nomeApp']
+    cria_app_url = "https://mycloudhmla1wsof001.mycompany.com.br:9443/api/am/store/v1/applications"
+    busca_apis_url = "https://mycloudhmla1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=" + os.environ['nomeApi']
+    busca_subs_url = "https://mycloudhmla1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/subscriptions?apiId="
+    cria_subs_url = "https://mycloudhmla1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions"
     gera_token_header_auth_value = "Basic <token_hml>"
     gera_token_header_username_value = "<user_hml>"
     gera_token_header_password_value = "<pass_hml>"
 
 if os.environ['env_wso2'] == 'prd':
-    gera_token_url = "https://rnnprda1wsof001.mycompany.com.br:8243/token"
-    busca_app_url = "https://rnnprda1wsof001.mycompany.com.br:9443/api/am/store/v1/applications?query=" + os.environ['nomeApp']
-    cria_app_url = "https://rnnprda1wsof001.mycompany.com.br:9443/api/am/store/v1/applications"
-    busca_apis_url = "https://rnnprda1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=" + os.environ['nomeApi']
-    busca_subs_url = "https://rnnprda1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/subscriptions?apiId="
-    cria_subs_url = "https://rnnprda1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions"
+    gera_token_url = "https://mycloudprda1wsof001.mycompany.com.br:8243/token"
+    busca_app_url = "https://mycloudprda1wsof001.mycompany.com.br:9443/api/am/store/v1/applications?query=" + os.environ['nomeApp']
+    cria_app_url = "https://mycloudprda1wsof001.mycompany.com.br:9443/api/am/store/v1/applications"
+    busca_apis_url = "https://mycloudprda1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=" + os.environ['nomeApi']
+    busca_subs_url = "https://mycloudprda1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/subscriptions?apiId="
+    cria_subs_url = "https://mycloudprda1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions"
     gera_token_header_auth_value = "Basic <token_prd>"
     gera_token_header_username_value = "<user_prd>"
     gera_token_header_password_value = "<pass_prd>"

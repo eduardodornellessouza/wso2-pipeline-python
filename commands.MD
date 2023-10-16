@@ -5,24 +5,24 @@ Sample Deploy   - https://apim.docs.wso2.com/en/3.1.0/learn/api-controller/impor
 # WSO2 DEV
 Usuário:        devops
 Senha:          YyCVW9Y9C8pMWnbT
-apim Azure:     https://apideva1.mycompany.com.br:9443/token
-apim OCI:       https://apidevo1.mycompany.com.br:9443/token 
-registration:   https://rnndeva1wsof001.mycompany.com.br:9443
-admin:          https://rnndeva1wsof001.mycompany.com.br:9443/admin 
-publisher:      https://rnndeva1wsof001.mycompany.com.br:9443/publisher 
-devportal:      https://rnndeva1wsof001.mycompany.com.br:9443/devportal
+apim Azure:     https://mydeva1.mycompany.com.br:9443/token
+apim OCI:       https://mydevo1.mycompany.com.br:9443/token 
+registration:   https://myclouddeva1wsof001.mycompany.com.br:9443
+admin:          https://myclouddeva1wsof001.mycompany.com.br:9443/admin 
+publisher:      https://myclouddeva1wsof001.mycompany.com.br:9443/publisher 
+devportal:      https://myclouddeva1wsof001.mycompany.com.br:9443/devportal
 
-curl --location --request POST 'https://apideva1.mycompany.com.br/token' -d "grant_type=client_credentials" --header 'Authorization: Basic NGVUWWtyTUdIMGZaTVNPdXJlMm5IMGtXekM0YTpkVEJZdjJuN2hvaDRjNTBfYTVCVFFEbTYxaWNh'
+curl --location --request POST 'https://mydeva1.mycompany.com.br/token' -d "grant_type=client_credentials" --header 'Authorization: Basic NGVUWWtyTUdIMGZaTVNPdXJlMm5IMGtXekM0YTpkVEJZdjJuN2hvaDRjNTBfYTVCVFFEbTYxaWNh'
 
 
- curl -X POST -H "Authorization: Basic ZGV2b3BzOll5Q1ZXOVk5QzhwTVduYlQ" -H "Content-Type: application/json" -d @payload.json https://apideva1.mycompany.com.br/client-registration/v0.16/register
+ curl -X POST -H "Authorization: Basic ZGV2b3BzOll5Q1ZXOVk5QzhwTVduYlQ" -H "Content-Type: application/json" -d @payload.json https://mydeva1.mycompany.com.br/client-registration/v0.16/register
 
 # modo default ou kubernetes
 apictl set --mode default
 
 # cria variaveis de conexao com ambiente
-apictl add-env -e dev --apim https://rnndeva1wsof001.mycompany.com.br:9443 
-apictl add-env -e dev --apim https://apidevo1.mycompany.com.br:9443/token 
+apictl add-env -e dev --apim https://myclouddeva1wsof001.mycompany.com.br:9443 
+apictl add-env -e dev --apim https://mydevo1.mycompany.com.br:9443/token 
 
 # pra remover ENV
 apictl remove env dev --verbose
@@ -57,20 +57,20 @@ DevPortal:  https://apim.docs.wso2.com/en/3.2.0/develop/product-apis/devportal-a
 Publisher:  https://apim.docs.wso2.com/en/3.2.0/develop/product-apis/publisher-apis/publisher-v1/publisher-v1/
 
 # auth
-curl -X POST -H "Authorization: Basic ZGV2b3BzOll5Q1ZXOVk5QzhwTVduYlQ" -H "Content-Type: application/json" -d @payload.json https://rnndeva1wsof001.mycompany.com.br:9443/client-registration/v0.16/register
+curl -X POST -H "Authorization: Basic ZGV2b3BzOll5Q1ZXOVk5QzhwTVduYlQ" -H "Content-Type: application/json" -d @payload.json https://myclouddeva1wsof001.mycompany.com.br:9443/client-registration/v0.16/register
 
 # gera token
-curl -k -X POST 'https://apideva1.mycompany.com.br/token' -d 'grant_type=password&username=admin&password=zvdcgh44LFVKdqp3&scope=apim:api_view apim:api_create apim:api_delete apim:api_publish apim:subscription_view apim:subscription_block apim:external_services_discover apim:threat_protection_policy_create apim:threat_protection_policy_manage apim:document_create apim:document_manage apim:mediation_policy_view apim:mediation_policy_create apim:mediation_policy_manage apim:client_certificates_view apim:client_certificates_add apim:client_certificates_update apim:ep_certificates_view apim:ep_certificates_add apim:ep_certificates_update apim:publisher_settings apim:pub_alert_manage apim:shared_scope_manage apim:app_import_export apim:api_import_export apim:api_product_import_export' --header 'Authorization: Basic ZWFGNXpUajNtdkNCS3JadG9qdWZIcGlBRGNBYToxaTlxVlU3a1BPU2RpSnowOHpXQUhuckdVSG9h'
+curl -k -X POST 'https://mydeva1.mycompany.com.br/token' -d 'grant_type=password&username=admin&password=zvdcgh44LFVKdqp3&scope=apim:api_view apim:api_create apim:api_delete apim:api_publish apim:subscription_view apim:subscription_block apim:external_services_discover apim:threat_protection_policy_create apim:threat_protection_policy_manage apim:document_create apim:document_manage apim:mediation_policy_view apim:mediation_policy_create apim:mediation_policy_manage apim:client_certificates_view apim:client_certificates_add apim:client_certificates_update apim:ep_certificates_view apim:ep_certificates_add apim:ep_certificates_update apim:publisher_settings apim:pub_alert_manage apim:shared_scope_manage apim:app_import_export apim:api_import_export apim:api_product_import_export' --header 'Authorization: Basic ZWFGNXpUajNtdkNCS3JadG9qdWZIcGlBRGNBYToxaTlxVlU3a1BPU2RpSnowOHpXQUhuckdVSG9h'
 
 # lista apis
-curl --location --request GET 'https://rnndeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=OMS-COMMERCE-API' --header 'Authorization: Bearer 836cad4c-8427-3e21-a6dc-75f9ebc0713b'
+curl --location --request GET 'https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1.2/apis?query=OMS-COMMERCE-API' --header 'Authorization: Bearer <my_token>'
 
 # lista apps
-curl -k -H 'Authorization: Bearer 836cad4c-8427-3e21-a6dc-75f9ebc0713b' 'https://rnndeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications'
+curl -k -H 'Authorization: Bearer <my_token>' 'https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications'
 
 # cria nova APP
-curl --location --request POST 'https://rnndeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications' \
---header 'Authorization: Bearer 58bd0a39-9bbc-3aeb-aef7-80ac2691ad83' \
+curl --location --request POST 'https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/store/v1/applications' \
+--header 'Authorization: Bearer <my_token>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "name": "CalculatorApp",
@@ -83,12 +83,12 @@ curl --location --request POST 'https://rnndeva1wsof001.mycompany.com.br:9443/ap
 }'
 
 # lista subscricoes
-curl -k -H "Authorization: Bearer 836cad4c-8427-3e21-a6dc-75f9ebc0713b" "https://rnndeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1/subscriptions?apiId=03402be2-ba7b-4f30-8828-b3c71092ae10"
+curl -k -H "Authorization: Bearer <my_token>" "https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/publisher/v1/subscriptions?apiId=03402be2-ba7b-4f30-8828-b3c71092ae10"
 
 
 # criar nova subscricao
-curl --location --request POST 'https://rnndeva1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions' \
---header 'Authorization: Bearer 6930fe7c-bc10-3c1d-a7cb-9923705e07f0' \
+curl --location --request POST 'https://myclouddeva1wsof001.mycompany.com.br:9443/api/am/store/v1/subscriptions' \
+--header 'Authorization: Bearer <my_token>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "applicationId":"461eec98-15d6-40d1-b751-3287ceb49d94",

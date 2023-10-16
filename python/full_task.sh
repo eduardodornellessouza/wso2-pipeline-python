@@ -26,7 +26,7 @@ echo "step 4 - exec modifica_swagger.py"
 echo "step 5 - inicia importação no WSO2"
 
 echo "step 5.1 - seta variaveis da task group"
-export ambiente="https://rnndeva1wsof001.mycompany.com.br:9443"
+export ambiente="https://myclouddeva1wsof001.mycompany.com.br:9443"
 export apiVersion="1.4.0.x"
 export nomeapi="RLOG-TRANSPORT-ORDER-TRACKING-API"
 export senha="YyCVW9Y9C8pMWnbT"

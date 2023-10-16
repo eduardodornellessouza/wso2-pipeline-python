@@ -14,7 +14,7 @@
     12 - lista novamente as APIs - apictl list apis -e dev -k --verbose --limit 100 --query name OMS-COMMERCE-API
     13 - altera o status da API para Publicada - apictl change-status api -a Publish -n OMS-COMMERCE-API -v 2.0.1 -e dev -k --verbose
     14 - lista novamente as APIs - apictl list apis -e dev -k --verbose --limit 100 --query name OMS-COMMERCE-API
-    15 - faz logout do WSO2 - apictl logout https://rnndeva1wsof001.mycompany.com.br:9443 --verbose
+    15 - faz logout do WSO2 - apictl logout https://myclouddeva1wsof001.mycompany.com.br:9443 --verbose
     16 - remove variáveis para conexão - apictl remove env dev --verbose
     ------ Abaixo executa aplicação python para subscrever API 
     17 - python3 main.py
