@@ -1,0 +1,3 @@
+- incluir version na tag info
+- retiradas tags de security
+- retirada post tags duplicada
